@@ -1,7 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useMutation, UseMutationResult, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
-import User from "@/types";
+import { User } from "../types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -11,10 +11,10 @@ type CreateUserRequest = {
 }
 
 //creating user api
-export const useCreateMyUser = (): UseMutationResult<void, Error, CreateUserRequest> => {
+export const useCreateMyUser = () => {
     const { getAccessTokenSilently } = useAuth0();
 
-    const createMyUserRequest = async (user: CreateUserRequest): Promise<void> => {
+    const createMyUserRequest = async (user: CreateUserRequest) => {
        const accessToken = await getAccessTokenSilently();
        const response = await fetch(`${API_BASE_URL}/api/my/user`, {
         method: "POST",
@@ -33,7 +33,7 @@ export const useCreateMyUser = (): UseMutationResult<void, Error, CreateUserRequ
       const { mutateAsync: createUser, 
               isPending, 
               isError, 
-              isSuccess } = useMutation<void, Error, CreateUserRequest>({mutationFn: createMyUserRequest});  
+              isSuccess } = useMutation({mutationFn: createMyUserRequest});  
 
      return {
         createUser,

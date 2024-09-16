@@ -1,5 +1,4 @@
 
-
 const Footer = () => {
   return (
     <div className="bg-orange-500 md:py-10 py-5">

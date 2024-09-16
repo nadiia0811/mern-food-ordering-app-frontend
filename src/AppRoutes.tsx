@@ -6,9 +6,7 @@ import UserProfilePage from "./components/pages/UserProfilePage";
 import ProtectedRoute from "./auth/ProtectedRoute";
 
 
-type Props = {}
-
-const AppRoutes = (props: Props) => {
+const AppRoutes = () => {
   return (
    
     <Routes> 

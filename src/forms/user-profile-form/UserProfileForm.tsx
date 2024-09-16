@@ -19,7 +19,6 @@ const formSchema = z.object({
 
 type UserFormSchema = z.infer<typeof formSchema>;
 
-
 type Props = {
   onSave: (userProfileData: UserFormSchema) => void;
   isLoading: boolean;
