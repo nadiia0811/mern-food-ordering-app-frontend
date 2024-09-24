@@ -1,5 +1,5 @@
 import { FormDescription, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { useForm, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import  { cuisineList } from "../../config/restaurant-options-config";
 import CuisineCheckbox from "./CuisineCheckbox";
 
@@ -16,7 +16,7 @@ const CuisinesSection = () => {
         </FormDescription>
       </div>
       <FormField control={control}
-                 name="cuisines"
+                 name="cuisines" 
                  rules={{ required: "You must select at least one cuisine" }}
                  render={({ field }) => (
                     <FormItem>
@@ -26,10 +26,12 @@ const CuisinesSection = () => {
                                                                                   key={index}/>)}
                       </div>
                       {errors.cuisines && (
-                     <FormMessage>{errors.cuisines?.message ? String(errors.cuisines.message) : null}</FormMessage>
+                     <FormMessage className="text-lg">
+                       {errors.cuisines?.message ? String(errors.cuisines.message) : null}
+                     </FormMessage>
                   )}
                     </FormItem>
-                 )} />     
+      )} />     
     </div>
   )
 }

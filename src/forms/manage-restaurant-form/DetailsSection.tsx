@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 
 
 const DetailsSection = () => {
-    const { control } = useFormContext();
+  const { control } = useFormContext();
   return (
    <div className="md:space-y-5 space-y-3">
       <div>

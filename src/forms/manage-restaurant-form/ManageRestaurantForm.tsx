@@ -5,6 +5,10 @@ import { z } from "zod";
 import DetailsSection from "./DetailsSection";
 import { Separator } from "@/components/ui/separator";
 import CuisinesSection from "./CuisinesSection";
+import MenuSection from "./MenuSection";
+import ImageSection from "./ImageSection";
+import LoadingButton from "@/components/LoadingButton";
+import { Button } from "@/components/ui/button";
 
 const formSchema = z.object({
   restaurantName: z.string({required_error: "restaurant name is required"})
@@ -23,7 +27,7 @@ const formSchema = z.object({
     message: "please select at least one item"
   }),
   menuItems: z.array(z.object({
-    name: z.string().min(1, "name is required"),
+    name: z.string().min(3, "name is required"),
     price: z.coerce.number().min(1, "price is required")
   })),
   imageFile: z.instanceof(File, {
@@ -42,7 +46,7 @@ const ManageRestaurantForm = ({onSave, isLoading} : Props) => {
   const onSubmit = (formDataJson: FormData) => {
 
   };
-  
+
   const form = useForm<RestaurantFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -57,6 +61,13 @@ const ManageRestaurantForm = ({onSave, isLoading} : Props) => {
         <DetailsSection />
         <Separator />
         <CuisinesSection />
+        <Separator />
+        <MenuSection />
+        <Separator />
+        <ImageSection />
+        {isLoading ? <LoadingButton /> : 
+                     <Button type="submit"
+                             className="md:text-lg text-base w-[130px]">Submit</Button>}
       </form>
     </Form>
   )

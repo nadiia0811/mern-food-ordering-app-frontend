@@ -7,4 +7,4 @@ const ManageRestaurantPage = () => {
   )
 }
 
-export default ManageRestaurantPage
+export default ManageRestaurantPage;
