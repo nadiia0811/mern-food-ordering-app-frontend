@@ -1,4 +1,4 @@
-import { useCreateMyRestaurant } from "../../api/MyRestaurantApi";
+import { useCreateMyRestaurant } from "../../api/MyRestaurantAPI";
 import ManageRestaurantForm from "../../forms/manage-restaurant-form/ManageRestaurantForm";
 
 const ManageRestaurantPage = () => {
