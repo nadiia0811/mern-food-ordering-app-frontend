@@ -7,3 +7,24 @@ export type User = {
   city: string;
   country: string;
 };
+
+export type MenuItem = {
+  _id: string;
+  name: string;
+  price: number;
+}
+
+//createRestaurant response type
+export type Restaurant = {
+  _id: string;
+  user: string;
+  restaurantName: string;
+  city: string;
+  country: string;
+  menuItems: MenuItem[];
+  deliveryPrice: number;
+  estimatedDeliveryTime: number;
+  cuisines: string[];
+  imageUrl: string;
+  lastUpdated: string;
+}
