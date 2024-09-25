@@ -13,14 +13,14 @@ export const useCreateMyRestaurant = () => {
         const response = await fetch(`${API_BASE_URL}/api/my/restaurant`, {
             method: "POST",
             headers: {
-                'Access-Control-Allow-Origin': '*',
                 Authorization: `Bearer ${accessToken}`,
             },
             body: restaurantFormData
         });
 
         if( !response.ok ) {
-            throw new Error("Failed create restaurant");
+            const errorResponse = await response.json();
+            throw new Error(`Failed to create restaurant: ${errorResponse}`);
         }
 
         return response.json();
