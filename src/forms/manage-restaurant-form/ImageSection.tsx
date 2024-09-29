@@ -16,9 +16,10 @@ const ImageSection = () => {
       </FormDescription>
     </div>
     <div className="flex flex-col md:w-[50%] gap-8">
+      { ! existingImageURL && <span>When you add an image, it will be shown in a widescreen format (16:9).</span>}
       { existingImageURL && ( <AspectRatio ratio={16/9}>
                                 <img src={existingImageURL}
-                                     className="rounded-md object-cover z-1"/>
+                                     className="rounded-md object-cover w-[350px] z-1"/>
                               </AspectRatio>)}
       <FormField control={control}
                  name="imageFile"
