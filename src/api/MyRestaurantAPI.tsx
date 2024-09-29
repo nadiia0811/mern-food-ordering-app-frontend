@@ -3,6 +3,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Restaurant } from "@/types";
 
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const useCreateMyRestaurant = () => {
@@ -10,8 +11,8 @@ export const useCreateMyRestaurant = () => {
     
     const createMyRestaurantRequest = async (restaurantFormData: FormData): Promise<Restaurant> => {
         const  accessToken  = await getAccessTokenSilently();
-
-        const response = await fetch(`${API_BASE_URL}/api/my/restaurant`, {
+        
+        const response =  await fetch(`${API_BASE_URL}/api/my/restaurant`, {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${accessToken}`,
@@ -19,10 +20,11 @@ export const useCreateMyRestaurant = () => {
             body: restaurantFormData
         });
 
-        if( !response.ok ) {
+         if( !response.ok ) {
+            console.log(response)
             const errorResponse = await response.json();
             throw new Error(`Failed to create restaurant: ${errorResponse}`);
-        }
+         } 
 
         return response.json();
     };
