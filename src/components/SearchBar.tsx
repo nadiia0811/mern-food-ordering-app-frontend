@@ -5,6 +5,7 @@ import { Form, FormField, FormItem, FormControl } from "./ui/form";
 import { Search } from "lucide-react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { useEffect } from "react";
 
 
 const formSchema = z.object({
@@ -19,15 +20,20 @@ type Props = {
  onSubmit: (formData: SearchForm) => void;
  placeholder: string;
  onReset?: () => void; 
+ searchQuery: string;
 }
 
-const SearchBar = ({onSubmit, onReset, placeholder}: Props) => {
+const SearchBar = ({onSubmit, onReset, placeholder, searchQuery}: Props) => {
   const form = useForm<SearchForm>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-        searchQuery: "",
+        searchQuery,
     }
   });
+
+  useEffect(() => {
+    form.reset({ searchQuery })
+  }, [form, searchQuery]);
 
   const handleReset = () => {
     form.reset({
@@ -52,15 +58,16 @@ const SearchBar = ({onSubmit, onReset, placeholder}: Props) => {
                         <FormItem className="flex-1">
                           <FormControl>
                             <Input {...field} className="border-none shadow-none text-xl 
-                                                         w-[60%] focus-visible:ring-0"
+                                                         w-[80%] focus-visible:ring-0"
                                               placeholder={placeholder}/>
                           </FormControl>
                         </FormItem>
           )}/>
-        { form.formState.isDirty && (<Button type="button" 
-                                             variant="outline"
-                                             className="rouned-full mr-8"
-                                             onClick={handleReset}>Clear</Button>) } 
+        <Button type="button" 
+                variant="outline"
+                className="rouned-full mr-8"
+                onClick={handleReset}>Reset
+        </Button>
         <Button className="rounded-full bg-orange-500 text-white">Search</Button>           
       </form>
     </Form>
