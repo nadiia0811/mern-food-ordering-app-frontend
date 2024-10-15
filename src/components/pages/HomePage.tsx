@@ -7,8 +7,7 @@ import { useNavigate } from "react-router";
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const handleSearchSubmit = (searchFormValues: SearchForm) => { 
- 
+  const handleSearchSubmit = (searchFormValues: SearchForm) => {  
    navigate({
     pathname: `/search/${searchFormValues.searchQuery}`
    })
