@@ -6,11 +6,13 @@ import { useState } from "react";
 import SearchBar, { SearchForm } from "../SearchBar";
 import PaginationSelector from "../PaginationSelector";
 import CuisinesFilter from "../CuisinesFilter";
+import SortOptionDropdown from "../SortOptionDropdown";
 
 export type SearchState = {
   searchQuery: string;
   page: number;
   selectedCuisines: string[];
+  sortOption: string;
 }
 
 const SearchPage = () => {
@@ -18,7 +20,8 @@ const SearchPage = () => {
     const [searchState, setSearchState] = useState<SearchState>({
       searchQuery: "",
       page: 1,
-      selectedCuisines: []
+      selectedCuisines: [],
+      sortOption: "bestMatch"
     });
     const { results, isLoading } = useSearchRestaurants(searchState, city);
     const  total = results?.pagination.totalRestaurants || 0;
@@ -37,6 +40,14 @@ const SearchPage = () => {
         ...prevState,
         page
       }))
+    };
+
+    const setSortOption = (sortOption: string) => {
+      setSearchState((prevState) => ({
+        ...prevState,
+        sortOption,
+        page: 1 
+      }));
     }
     
     if( isLoading ) {
@@ -81,8 +92,13 @@ const SearchPage = () => {
         <SearchBar searchQuery={searchState.searchQuery}
                    onSubmit={setSearchQuery} 
                    placeholder="Search by cuisine or restaurant name"
-                   onReset={resetSearch}/>    
-        <SearchResultInfo total={total} city={city}/>
+                   onReset={resetSearch}/> 
+        <div className="flex flex-col gap-3 justify-between lg:flex-row">
+            <SearchResultInfo total={total} city={city}/>
+            <SortOptionDropdown sortOption={searchState.sortOption}
+                                onChange={(value) => setSortOption(value)}/>
+        </div>              
+       
         {results.data.map((item, index) => (<SearchResultCard key={index} restaurant={item}/>))}
 
         <PaginationSelector page={results?.pagination.page}  
