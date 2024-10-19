@@ -17,16 +17,23 @@ const formSchema = z.object({
     country: z.string().min(1,"country is required"),   
 });
 
-type UserFormSchema = z.infer<typeof formSchema>;
+export type UserFormData = z.infer<typeof formSchema>;
 
 type Props = {
-  onSave: (userProfileData: UserFormSchema) => void;
+  onSave: (userProfileData: UserFormData) => void;
   isLoading: boolean;
   currentUser: User;
+  title?: string;
+  buttonText?: string;
 }
 
-const UserProfileForm = ({onSave, isLoading, currentUser} : Props) => {
-    const form = useForm<UserFormSchema>({
+const UserProfileForm = ({
+  onSave, 
+  isLoading, 
+  currentUser, 
+  title="User Profile", 
+  buttonText="Submit"} : Props) => {
+    const form = useForm<UserFormData>({
         resolver: zodResolver(formSchema),
         defaultValues: currentUser
     });
@@ -37,9 +44,10 @@ const UserProfileForm = ({onSave, isLoading, currentUser} : Props) => {
   return (
     <Form {...form}>
        <form onSubmit={form.handleSubmit(onSave)}
-             className="space-y-4 bg-gray-50 rounded-lg md:px-30 p-10 flex flex-col">
+             className="space-y-4 bg-gray-100 rounded-lg flex flex-col 
+                        ml-auto mr-auto p-3">
           <div>
-             <h2 className="text-2xl md:text-4xl font-bold">User Profile Form</h2>
+             <h2 className="text-2xl md:text-4xl font-bold">{title}</h2>
              <FormDescription className="md:text-lg text-base font-semibold">
                View and change your profile information here
              </FormDescription>          
@@ -98,10 +106,9 @@ const UserProfileForm = ({onSave, isLoading, currentUser} : Props) => {
 
           {isLoading ? ( <div className="w-[150px] h-[36px]"><LoadingButton /></div>  ): 
                        ( <Button type="submit"
-                                 className="bg-orange-500 text-white 
-                                            font-bold md:text-lg md:w-[150px] 
-                                            w-[85px] text-base">
-                           Submit
+                                 className={`bg-orange-500 text-white text-base mt-[30px]
+                                  ${buttonText === "Submit" ? "w-[25%]" : "w-[50%]"}  ml-auto mr-auto`}>
+                           {buttonText}
                        </Button>)
           }
        </form>
