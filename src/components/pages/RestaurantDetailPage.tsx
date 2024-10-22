@@ -9,6 +9,7 @@ import { useState } from "react";
 import { Card, CardFooter } from "../ui/card";
 import CheckoutButton from "../CheckoutButton";
 import { UserFormData } from "@/forms/user-profile-form/UserProfileForm";
+import { useCreateCheckoutSession } from "@/api/OrderAPI";
 
 
 export type CartItem = {
@@ -21,6 +22,7 @@ export type CartItem = {
 const RestaurantDetailPage = () => {
     const { restaurantId } = useParams();
     const { restaurant, isLoading } = useGetRestaurant(restaurantId);
+    const { createCheckoutSession, isLoading: isCheckoutLoading } = useCreateCheckoutSession();
     const [cartItems, setCartItems] = useState<CartItem[]>(() => {
       const storedCartItems = sessionStorage.getItem(`cartItems-${restaurantId}`);
       return storedCartItems ? JSON.parse(storedCartItems) : []
@@ -56,9 +58,30 @@ const RestaurantDetailPage = () => {
       })
     };
 
-    const onCheckout = (userFormData: UserFormData) => {
-       console.log("userformdata", userFormData);
-    }
+    const onCheckout = async (userFormData: UserFormData) => {
+       if(!restaurant) {
+        return;
+       }
+
+       const checkoutData = {
+        cartItems: cartItems.map((cartItem) => ({
+          menuItemId: cartItem._id,
+          name: cartItem.name,
+          quantity: cartItem.quantity.toString(),
+        })),
+        restaurantId: restaurant?._id,
+        deliveryDetails: {
+          name: userFormData.name,
+          addressLine1: userFormData.addressLine1,
+          city: userFormData.city,
+          country: userFormData.country,
+          email: userFormData.email as string
+        }
+       };
+
+       const data = await createCheckoutSession(checkoutData);
+       window.location.href = data.url;
+    };
 
     if(isLoading || !restaurant) {
         return <span>Loading...</span>
@@ -88,7 +111,8 @@ const RestaurantDetailPage = () => {
                            removeFromCart={removeFromCart}/>
               <CardFooter>
                 <CheckoutButton disabled={cartItems.length === 0}
-                                onCheckout={onCheckout}/>
+                                onCheckout={onCheckout}
+                                isLoading={isCheckoutLoading}/>
               </CardFooter>             
            </Card>
          </div>

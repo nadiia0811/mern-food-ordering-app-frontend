@@ -38,6 +38,9 @@ const UserProfileForm = ({
         defaultValues: currentUser
     });
 
+    const formText = (title === "Confirm Delivery Details") ? 
+                   "Delivery address" : "View and change your profile information here";
+
     useEffect(() => {
       form.reset(currentUser);
     }, [currentUser, form]);
@@ -49,7 +52,7 @@ const UserProfileForm = ({
           <div>
              <h2 className="text-2xl md:text-4xl font-bold">{title}</h2>
              <FormDescription className="md:text-lg text-base font-semibold">
-               View and change your profile information here
+               {formText}              
              </FormDescription>          
           </div>
 
@@ -106,8 +109,7 @@ const UserProfileForm = ({
 
           {isLoading ? ( <div className="w-[150px] h-[36px]"><LoadingButton /></div>  ): 
                        ( <Button type="submit"
-                                 className={`bg-orange-500 text-white text-base mt-[30px]
-                                  ${buttonText === "Submit" ? "w-[25%]" : "w-[50%]"}  ml-auto mr-auto`}>
+                                 className="bg-orange-500 text-white text-base w-[25%]">
                            {buttonText}
                        </Button>)
           }
