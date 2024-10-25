@@ -40,7 +40,7 @@ const OrderSummary = ({ restaurant, cartItems, removeFromCart } : Props) => {
           <div className="flex justify-between">
             <span>
                 <Badge variant="outline" className="mr-2">
-                {item.quantity}
+                 {item.quantity}
                 </Badge>
                 {item.name}
             </span>

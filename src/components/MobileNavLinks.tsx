@@ -8,6 +8,11 @@ const MobileNavLinks = () => {
     <div className="flex flex-col gap-4">
       <Link className="font-bold bg-white flex items-center
                        hover:text-orange-500"
+                       to="/order-status">
+        Order Status             
+      </Link>
+      <Link className="font-bold bg-white flex items-center
+                       hover:text-orange-500"
                        to="/user-profile">
         User Profile             
       </Link>

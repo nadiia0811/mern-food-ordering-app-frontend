@@ -7,12 +7,16 @@ import ProtectedRoute from "./auth/ProtectedRoute";
 import ManageRestaurantPage from "./components/pages/ManageRestaurantPage";
 import SearchPage from "./components/pages/SearchPage";
 import RestaurantDetailPage from "./components/pages/RestaurantDetailPage";
+import OrderStatusPage from "./components/pages/OrderStatusPage";
 
 
 const AppRoutes = () => {
   return (
    
     <Routes> 
+        <Route element={<ProtectedRoute />}>
+          <Route path="/order-status" element={<Layout> <OrderStatusPage /> </Layout>} /> 
+        </Route> 
         <Route element={<ProtectedRoute />}>
           <Route path="/user-profile" element={<Layout> <UserProfilePage /> </Layout>} /> 
         </Route> 

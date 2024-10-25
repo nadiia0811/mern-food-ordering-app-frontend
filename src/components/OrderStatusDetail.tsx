@@ -1,4 +1,4 @@
-import { Order } from "@/types";
+import { Order } from "../types";
 import { Separator } from "./ui/separator";
 
 type Props = {
@@ -16,7 +16,7 @@ const OrderStatusDetail = ({order}: Props) => {
       <div className="flex flex-col">
         <span className="font-bold">Your Order:</span>
         <ul>
-            {order.cartItems.map((cartItem) => (
+            {order.cartItems?.map((cartItem) => (
                        <li>
                          {cartItem.name} X {cartItem.quantity}
                        </li>
