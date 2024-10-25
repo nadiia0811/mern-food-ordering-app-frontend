@@ -6,11 +6,12 @@ type Props = {
 }
 
 const OrderStatusDetail = ({order}: Props) => {
+ 
   return (
     <div className="space-y-5">
       <div className="flex flex-col">
         <span className="font-bold">Delivering To:</span>
-        <span>{order.deliveryDetails.name}</span>
+        <span>{order.user.name}</span>
         <span>{order.deliveryDetails.addressLine1}, {order.deliveryDetails.city}</span>
       </div>
       <div className="flex flex-col">
