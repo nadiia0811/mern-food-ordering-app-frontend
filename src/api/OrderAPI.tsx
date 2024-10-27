@@ -43,7 +43,8 @@ export const useGetMyOrders = () => {
  const {data: orders,
         isPending: isLoading} = useQuery({
             queryKey: ["fetchMyOrders"],
-            queryFn: getMyOrdersRequest
+            queryFn: getMyOrdersRequest,
+            refetchInterval: 5000           
         });
 
    return { orders, isLoading };     
@@ -83,7 +84,5 @@ export const useCreateCheckoutSession = () => {
         reset();
     }        
 
-      return { createCheckoutSession, isLoading };
-
-    
+      return { createCheckoutSession, isLoading };    
 }
