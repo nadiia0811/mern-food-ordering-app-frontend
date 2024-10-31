@@ -34,9 +34,6 @@ const ManageRestaurantPage = () => {
                                 onSave={isEditing ? updateRestaurant : createRestaurant}/> 
        </TabsContent>
      </Tabs>
-    // <ManageRestaurantForm isLoading={isCreateLoading || isUpdateLoading || isOrdersLoading} 
-     //                      restaurant={restaurant}
-     //                      onSave={isEditing ? updateRestaurant : createRestaurant}/> 
   )
 }
 
